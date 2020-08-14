@@ -4,8 +4,6 @@ ENV CGO_ENABLED=0
 ENV GOOS=linux
 RUN apk add git --no-cache
 RUN go get github.com/gorilla/mux
-RUN go get github.com/mdlayher/wol
-RUN go get github.com/sparrc/go-ping
 
 COPY "./webapi" /appbuild
 WORKDIR /appbuild
