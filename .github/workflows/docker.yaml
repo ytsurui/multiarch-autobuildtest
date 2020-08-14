@@ -4,10 +4,6 @@ on:
     branches: master
     tags:
       - "*"
-  release:
-    branches: master
-    tags:
-      - "*"
 jobs:
 
   build:
