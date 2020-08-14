@@ -1,15 +1,17 @@
 name: Publish Docker image
 on:
   push:
-    branches:
-      - master
+    branches: master
+    tags:
+      - v*
 jobs:
 
   build:
     name: build and publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@master
 
       - name: Set up Docker Buildx
         id: buildx
@@ -24,7 +26,13 @@ jobs:
 
       - name: Build and Publish
         run: |
+          TAGS=${{ github.repository }}:latest
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            TAGS="${TAGS} -t ${{ github.repository }}:${GITHUB_REF#refs/tags/v}"
+          fi
+          
+          
           docker buildx build \
             --push \
             --platform linux/arm/v7,linux/arm64/v8,linux/amd64 \
-            -t ${{ github.repository }}:latest .
+            -t ${TAGS}:latest .
