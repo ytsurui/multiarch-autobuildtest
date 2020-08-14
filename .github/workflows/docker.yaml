@@ -32,7 +32,7 @@ jobs:
         run: |
           TAGS=${{ github.repository }}:latest
           if [[ $GITHUB_REF == refs/tags/* ]]; then
-            TAGS="${TAGS} -t ${{ github.repository }}:${GITHUB_REF#refs/tags/v}"
+            TAGS="${TAGS} -t ${{ github.repository }}:${GITHUB_REF#refs/tags/}"
           fi
           
           
